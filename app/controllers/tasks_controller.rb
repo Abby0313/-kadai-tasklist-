@@ -1,4 +1,5 @@
 class TasksController < ApplicationController
+
   def index
     @tasks = Task.all.page(params[:page])
   end
@@ -12,7 +13,9 @@ class TasksController < ApplicationController
   end
 
   def create
-    @task = Task.new(tasks_params)
+#    @task = Task.new(tasks_params)
+    @task = current_user.tasks.build(tasks_params)
+    puts @task
 
     if @task.save
       flash[:success] = 'タスクが正常に投稿されました'
