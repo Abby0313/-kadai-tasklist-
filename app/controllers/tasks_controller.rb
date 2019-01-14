@@ -20,7 +20,6 @@ class TasksController < ApplicationController
   def create
 #    @task = Task.new(tasks_params)
     @task = current_user.tasks.build(tasks_params)
-    puts @task
 
     if @task.save
       flash[:success] = 'タスクが正常に投稿されました'
@@ -68,10 +67,10 @@ class TasksController < ApplicationController
     end
     
     def correct_user
-    @micropost = current_user.tasks.find_by(id: params[:id])
+    @task = current_user.tasks.find_by(id: params[:id])
     unless @task
 #      redirect_to root_url
     end
   end
-
 end
+  
