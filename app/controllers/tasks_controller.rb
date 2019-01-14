@@ -9,6 +9,7 @@ class TasksController < ApplicationController
   end
 
   def show
+#    @task = current_user.tasks.find_by(id: params[:id])
     set_task
   end
 
@@ -57,8 +58,19 @@ class TasksController < ApplicationController
   private
   
     def set_task
-    @task = current_user.tasks.find(params[:id])
 #    @task = Task.find(params[:id])
+#    @task = current_user.tasks.find(params[:id])
+    puts 'pass1'
+    @task = current_user.tasks.find_by(id: params[:id])
+    puts 'pass2'
+    puts @task
+    puts 'pass3'
+      unless @task
+          puts 'pass4'
+
+        redirect_to root_url
+      end
+    puts 'pass5'
     end
 
     # Strong Parameter
@@ -68,9 +80,9 @@ class TasksController < ApplicationController
     
     def correct_user
     @task = current_user.tasks.find_by(id: params[:id])
-    unless @task
-#      redirect_to root_url
-    end
+      unless @task
+#       redirect_to root_url
+      end
   end
 end
   
